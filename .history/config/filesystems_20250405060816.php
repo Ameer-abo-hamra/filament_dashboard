@@ -60,7 +60,7 @@ return [
         'category' => [
             'driver' => 'local',
             'root' => public_path('category'),
-            'url' => 'https://wemarketglobal.com/cms/public/category',
+            'url' => asset("ca"),
             'visibility' => 'public',
             'throw' => false,
         ],
