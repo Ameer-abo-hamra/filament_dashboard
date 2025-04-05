@@ -53,21 +53,21 @@ return [
         'brand' => [
             'driver' => 'local',
             'root' => public_path('brand'),
-            'url' => env("APP_URL") . "/brand",
+            'url' => env("APP_URL" . "/brand"),
             'visibility' => 'public',
             'throw' => false,
         ],
         'category' => [
             'driver' => 'local',
             'root' => public_path('category'),
-            'url' => env("APP_URL") . "/category",
+            'url' => env("APP_URL" . "/category"),
             'visibility' => 'public',
             'throw' => false,
         ],
         //https://filament-dashboard-main-dvchw2.laravel.cloud/storage/brandPhoto/jXu2LNPrZ9Pe8FNGbXtzmXOul048xr-metaU2NyZWVuc2hvdCAyMDI0LTAxLTEyIDIyMzkzOC5wbmc=-.png
         //https://filament-dashboard-main-dvchw2.laravel.cloud/storage/brandPhoto/hfmXeZS538uMTSN8R0TXGu0XRgrPNF-metaU2NyZWVuc2hvdCAyMDI0LTAyLTI2IDIyNTMzMi5wbmc=-.png
         //http://127.0.0.1:8000/storage/brandPhoto/7Ru0WZinFF2Uvp7eSj4SZZJtj1w6zu-metaU2NyZWVuc2hvdCAyMDI0LTAyLTI2IDIyNTMzMi5wbmc=-.png
-        //http://127.0.0.1:8000/storage/brandPhoto/7Ru0WZinFF2Uvp7eSj4SZZJtj1w6zu-metaU2NyZWVuc2hvdCAyMDI0LTAyLTI2IDIyNTMzMi5wbmc=-.png
+        //http://127.0.0.1:8000/storage/brandPhoto/7Ru0WZinFF2Uvp7eSj4SZZJtj1w6zu-metaU2NyZWVuc2hvdCAyMDI0LTAyLTI2IDIyNTMzMi5wbmc=-.png	
         'page' => [
             'driver' => 'local',
             'root' => public_path('page'),
