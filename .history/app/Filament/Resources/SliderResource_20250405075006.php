@@ -51,23 +51,19 @@ class SliderResource extends Resource
                 Tables\Columns\ImageColumn::make('image')
                     ->getStateUsing(function (Slider $record): string {
                         if ($record->image === null) {
-                            return asset('brand/brandPhoto/ameer.jpg');
+                            return asset('category/categories/ameer.jpg');
                         }
-
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return 'https://wemarketglobal.com/cms/public/slider/' . $path;
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
                                 fn(Slider $record): HtmlString =>
-                                new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
-                                )
+                                new HtmlString('<img src="https://wemarketglobal.com/cms/public/slider/' . str_replace('\\', '/', $record->image) . '" class="w-full">')
                             )
-                    )
-                ,
+                    ),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

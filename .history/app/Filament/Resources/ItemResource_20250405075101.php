@@ -138,7 +138,7 @@ class ItemResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('image')
-                    ->getStateUsing(function (Item $record): string {
+                    ->getStateUsing(function (Brand $record): string {
                         if ($record->image === null) {
                             return asset('brand/brandPhoto/ameer.jpg');
                         }

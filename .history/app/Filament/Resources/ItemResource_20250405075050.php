@@ -138,25 +138,23 @@ class ItemResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('image')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->getStateUsing(function (Item $record): string {
                         if ($record->image === null) {
-                            return asset('brand/brandPhoto/ameer.jpg');
+                            return asset('category/categories/ameer.jpg');
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return 'https://wemarketglobal.com/cms/public/item/' . $path;
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
                                 fn(Item $record): HtmlString =>
-                                new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
-                                )
+                                new HtmlString('<img src="https://wemarketglobal.com/cms/public/item/' . str_replace('\\', '/', $record->image) . '" class="w-full">')
                             )
-                    )
-                ,
+                    ),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()

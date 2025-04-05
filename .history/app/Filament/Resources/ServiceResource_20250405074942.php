@@ -60,26 +60,23 @@ class ServiceResource extends Resource
                 TextColumn::make('name')
                     ->label('Name')
                     ->searchable(),
-                    Tables\Columns\ImageColumn::make('image')
+
+                Tables\Columns\ImageColumn::make('image')
                     ->getStateUsing(function (Service $record): string {
                         if ($record->image === null) {
-                            return asset('brand/brandPhoto/ameer.jpg');
+                            return asset('service/service/ameer.jpg');
                         }
-
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return 'https://wemarketglobal.com/cms/public/service/' . $path;
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
                                 fn(Service $record): HtmlString =>
-                                new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
-                                )
+                                new HtmlString('<img src="https://wemarketglobal.com/cms/public/service/' . str_replace('\\', '/', $record->image) . '" class="w-full">')
                             )
-                    )
-                ,
+                    ),
 
                 TextColumn::make('content')
                     ->label('Content')

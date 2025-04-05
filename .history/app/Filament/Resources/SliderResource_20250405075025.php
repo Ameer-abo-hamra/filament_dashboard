@@ -49,7 +49,7 @@ class SliderResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
-                    ->getStateUsing(function (Slider $record): string {
+                    ->getStateUsing(function (  $record): string {
                         if ($record->image === null) {
                             return asset('brand/brandPhoto/ameer.jpg');
                         }

@@ -138,7 +138,7 @@ class ItemResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('image')
-                    ->getStateUsing(function (Item $record): string {
+                    ->getStateUsing(function (Brand $record): string {
                         if ($record->image === null) {
                             return asset('brand/brandPhoto/ameer.jpg');
                         }
@@ -150,7 +150,7 @@ class ItemResource extends Resource
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
-                                fn(Item $record): HtmlString =>
+                                fn(Brand $record): HtmlString =>
                                 new HtmlString(
                                     '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
                                 )

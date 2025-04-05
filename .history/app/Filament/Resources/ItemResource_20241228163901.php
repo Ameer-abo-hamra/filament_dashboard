@@ -111,14 +111,14 @@ class ItemResource extends Resource
                     ->numeric()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
-                    ->formatStateUsing(fn(string $state): string => match ($state) {
-                        '0' => 'Pending',
-                        '1' => 'Approved',
-                        '2' => 'Rejected',
-                        default => 'Unknown'
-                    })
+                    Tables\Columns\TextColumn::make('status')
+                        ->label('Status')
+                        ->formatStateUsing(fn (string $state): string => match ($state) {
+                            '0' => 'Pending',
+                            '1' => 'Approved',
+                            '2' => 'Rejected',
+                            default => 'Unknown'
+                        })
                 ,
                 Tables\Columns\IconColumn::make('star')
                     ->boolean()
@@ -138,25 +138,22 @@ class ItemResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('image')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->getStateUsing(function (Item $record): string {
                         if ($record->image === null) {
-                            return asset('brand/brandPhoto/ameer.jpg');
+                            return asset('category/categories/ameer.jpg');
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return 'https://wemarketglobal.com/cms/public/item/' . $path;
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
                                 fn(Item $record): HtmlString =>
-                                new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
-                                )
-                            )
-                    )
-                ,
+                                new HtmlString('<img src="https://wemarketglobal.com/cms/public/item/' . str_replace('\\', '/', $record->image) . '" class="w-full">')
+                            )                    ),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
@@ -188,11 +185,11 @@ class ItemResource extends Resource
                         return $query
                             ->when(
                                 $data['commission_from'],
-                                fn(Builder $query, $value): Builder => $query->where('commission', '>=', $value)
+                                fn (Builder $query, $value): Builder => $query->where('commission', '>=', $value)
                             )
                             ->when(
                                 $data['commission_to'],
-                                fn(Builder $query, $value): Builder => $query->where('commission', '<=', $value)
+                                fn (Builder $query, $value): Builder => $query->where('commission', '<=', $value)
                             );
                     }),
                 Tables\Filters\SelectFilter::make('category')
@@ -210,11 +207,11 @@ class ItemResource extends Resource
                         return $query
                             ->when(
                                 $data['price_from'],
-                                fn(Builder $query, $value): Builder => $query->where('price', '>=', $value)
+                                fn (Builder $query, $value): Builder => $query->where('price', '>=', $value)
                             )
                             ->when(
                                 $data['price_to'],
-                                fn(Builder $query, $value): Builder => $query->where('price', '<=', $value)
+                                fn (Builder $query, $value): Builder => $query->where('price', '<=', $value)
                             );
                     }),
                 Tables\Filters\TernaryFilter::make('is_new'),
@@ -231,11 +228,11 @@ class ItemResource extends Resource
                         return $query
                             ->when(
                                 $data['visitors_from'],
-                                fn(Builder $query, $value): Builder => $query->where('visitors', '>=', $value)
+                                fn (Builder $query, $value): Builder => $query->where('visitors', '>=', $value)
                             )
                             ->when(
                                 $data['visitors_to'],
-                                fn(Builder $query, $value): Builder => $query->where('visitors', '<=', $value)
+                                fn (Builder $query, $value): Builder => $query->where('visitors', '<=', $value)
                             );
                     }),
                 Tables\Filters\Filter::make('created_at')
@@ -247,42 +244,42 @@ class ItemResource extends Resource
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date)
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date)
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date)
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date)
                             );
                     })
             ])
             ->actions([
                 Action::make('accept')
-                    ->label('accept item ')
-                    ->icon('heroicon-o-check')
-                    ->color('success')
-                    ->visible(fn(Item $record) => $record->status == 0 || $record->status == 2)
-                    ->action(action: function ($record) {
-                        $record->status = 1;
-                        $record->save();
+                ->label('accept item ')
+                ->icon('heroicon-o-check')
+                ->color('success')
+                ->visible(fn (Item $record) => $record->status == 0 || $record->status == 2)
+                ->action(action: function ($record) {
+                    $record->status = 1;
+                    $record->save();
 
-                        Notification::make()
-                            ->title('Item accepted successfully')
-                            ->success()
-                            ->send();
-                    })->button(),
+                    Notification::make()
+                        ->title('Item accepted successfully')
+                        ->success()
+                        ->send();
+                })->button(),
                 Action::make('reject')
-                    ->label('reject item ')
-                    ->icon('heroicon-o-x-mark')
-                    ->color('danger')
-                    ->visible(fn(Item $record) => $record->status == 0 || $record->status == 1)
-                    ->action(action: function ($record) {
-                        $record->status = 2;
-                        $record->save();
-                        Notification::make()
-                            ->title('Item rejected successfully')
-                            ->success()
-                            ->send();
-                    })->button(),
+                ->label('reject item ')
+                ->icon('heroicon-o-x-mark')
+                ->color('danger')
+                ->visible(fn (Item $record) => $record->status == 0 || $record->status == 1)
+                ->action(action: function ($record) {
+                    $record->status = 2;
+                    $record->save();
+                    Notification::make()
+                    ->title('Item rejected successfully')
+                    ->success()
+                    ->send();
+                })->button(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -357,7 +354,7 @@ class ItemResource extends Resource
                                             ->label('Category')
                                             ->relationship('category', 'name')
                                             ->disabled(),
-
+                                        
                                         Select::make('coin_id')
                                             ->label('Coin')
                                             ->relationship('coin', titleAttribute: 'name')

@@ -2,43 +2,44 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SliderResource\Pages;
-use App\Filament\Resources\SliderResource\RelationManagers;
-use App\Models\Slider;
+use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Models\Brand;
+use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
-class SliderResource extends Resource
+class CategoryResource extends Resource
 {
-    protected static ?string $model = Slider::class;
+    protected static ?string $model = Category::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     public static function getNavigationBadge(): ?string
     {
-        return (string) Slider::count();
+        return (string) Category::count();
     }
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
-                    ->disk('slider')
-                    ->directory('slideres')
-                    ->image(),
-                Forms\Components\Textarea::make('content')
-                    ->required()
+                    ->Disk("category")
+                    ->directory("categories"),
+                Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
+                Forms\Components\ColorPicker::make('color')
             ]);
     }
 
@@ -46,28 +47,49 @@ class SliderResource extends Resource
     {
         return $table
             ->columns([
+
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
-                    ->getStateUsing(function (Slider $record): string {
+                    ->getStateUsing(function (Category $record): string {
                         if ($record->image === null) {
                             return asset('brand/brandPhoto/ameer.jpg');
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return asset('category/' . $path);
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
-                                fn(Slider $record): HtmlString =>
+                                fn(Category $record): HtmlString =>
                                 new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
+                                    '<img src="' . asset('category/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
                                 )
                             )
                     )
                 ,
+
+                Tables\Columns\TextColumn::make('color')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('inserted_by')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_by')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('deleted_by')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -76,11 +98,10 @@ class SliderResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('content')
-                    ->limit(25, 255)
-                    ->toggleable(isToggledHiddenByDefault: false),
             ])
-
+            ->filters([
+                //
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -88,25 +109,24 @@ class SliderResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+
             ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
-            ]);
+            ->emptyStateActions([]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ItemsRelationManager::class
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSliders::route('/'),
-            'create' => Pages\CreateSlider::route('/create'),
-            'edit' => Pages\EditSlider::route('/{record}/edit'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }
