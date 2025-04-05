@@ -63,7 +63,7 @@ class BrandResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image')
+                    Tables\Columns\ImageColumn::make('image')
                     ->getStateUsing(function (Brand $record): string {
                         if ($record->image === null) {
                             return asset('brand/brandPhoto/ameer.jpg');
@@ -77,12 +77,12 @@ class BrandResource extends Resource
                             ->modalHeading('View Image')
                             ->modalContent(
                                 fn(Brand $record): HtmlString =>
-                                new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
-                                )
+                                    new HtmlString(
+                                        '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
+                                    )
                             )
                     )
-                ,
+,
 
                 Tables\Columns\TextColumn::make('inserted_by')
                     ->numeric()

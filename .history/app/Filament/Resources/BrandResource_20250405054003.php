@@ -70,19 +70,16 @@ class BrandResource extends Resource
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return asset("brand/brandPhoto/") . $path;
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
                             ->modalHeading('View Image')
                             ->modalContent(
                                 fn(Brand $record): HtmlString =>
-                                new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
-                                )
+                                new HtmlString('<img src="https://wemarketglobal.com/cms/public/brand/' . str_replace('\\', '/', $record->image) . '" class="w-full">')
                             )
-                    )
-                ,
+                    ),
 
                 Tables\Columns\TextColumn::make('inserted_by')
                     ->numeric()

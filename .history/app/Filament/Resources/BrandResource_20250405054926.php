@@ -70,7 +70,7 @@ class BrandResource extends Resource
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return asset("brand/brandPhoto/. $path");
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
@@ -78,7 +78,7 @@ class BrandResource extends Resource
                             ->modalContent(
                                 fn(Brand $record): HtmlString =>
                                 new HtmlString(
-                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
+                                    '<img src="' . asset('brand/brandPhoto/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
                                 )
                             )
                     )

@@ -70,7 +70,7 @@ class BrandResource extends Resource
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('brand/' . $path);
+                        return asset("brand//. $path");
                     })
                     ->action(
                         Tables\Actions\Action::make('view')
