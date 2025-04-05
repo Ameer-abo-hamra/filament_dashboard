@@ -46,7 +46,7 @@ return [
         'item' => [
             'driver' => 'local',
             'root' => public_path('item'),
-            'url' => env("APP_URL") . '/item',
+            'url' => 'https://wemarketglobal.com/cms/public/item',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -85,14 +85,14 @@ return [
         'slider' => [
             'driver' => 'local',
             'root' => public_path('slider'),
-            'url' => env("APP_URL") . '/slider',
+            'url' =>env("APP_URL") '/slider',
             'visibility' => 'public',
             'throw' => false,
         ],
         'contact' => [
             'driver' => 'local',
             'root' => public_path('contact'),
-            'url' => env("APP_URL") . '/contact',
+            'url' => 'https://wemarketglobal.com/cms/public/contact',
             'visibility' => 'public',
             'throw' => false,
         ],

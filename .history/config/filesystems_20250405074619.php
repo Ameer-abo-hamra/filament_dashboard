@@ -46,7 +46,7 @@ return [
         'item' => [
             'driver' => 'local',
             'root' => public_path('item'),
-            'url' => env("APP_URL") . '/item',
+            'url' => 'https://wemarketglobal.com/cms/public/item',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -92,7 +92,7 @@ return [
         'contact' => [
             'driver' => 'local',
             'root' => public_path('contact'),
-            'url' => env("APP_URL") . '/contact',
+            'url' => 'https://wemarketglobal.com/cms/public/contact',
             'visibility' => 'public',
             'throw' => false,
         ],
