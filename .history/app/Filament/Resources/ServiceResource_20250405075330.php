@@ -67,7 +67,7 @@ class ServiceResource extends Resource
                         }
 
                         $path = str_replace('\\', '/', $record->image);
-                        return asset('service/' . $path);
+                        return asset('brand/' . $path);
                     })
                     ->action(
                         Tables\Actions\Action::make('view')

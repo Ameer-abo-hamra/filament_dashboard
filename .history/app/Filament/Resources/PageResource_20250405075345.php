@@ -65,7 +65,7 @@ class PageResource extends Resource
                             ->modalContent(
                                 fn(Page $record): HtmlString =>
                                 new HtmlString(
-                                    '<img src="' . asset('page/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
+                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
                                 )
                             )
                     )

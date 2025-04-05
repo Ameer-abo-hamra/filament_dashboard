@@ -152,7 +152,7 @@ class ItemResource extends Resource
                             ->modalContent(
                                 fn(Item $record): HtmlString =>
                                 new HtmlString(
-                                    '<img src="' . asset('item/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
+                                    '<img src="' . asset('brand/' . str_replace('\\', '/', $record->image)) . '" class="w-full">'
                                 )
                             )
                     )
