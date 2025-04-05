@@ -45,15 +45,15 @@ class AdminPanelProvider extends PanelProvider
                         // يمكنك إضافة المزيد من الـ Widgets هنا إذا لزم الأمر
             ])
             ->middleware([
-                // EncryptCookies::class,
-                // AddQueuedCookiesToResponse::class,
-                // StartSession::class,
-                // AuthenticateSession::class,
-                // ShareErrorsFromSession::class,
-                // VerifyCsrfToken::class,
-                // SubstituteBindings::class,
-                // DisableBladeIconComponents::class,
-                // DispatchServingFilamentEvent::class,
+                EncryptCookies::class,
+                AddQueuedCookiesToResponse::class,
+                StartSession::class,
+                AuthenticateSession::class,
+                ShareErrorsFromSession::class,
+                VerifyCsrfToken::class,
+                SubstituteBindings::class,
+                DisableBladeIconComponents::class,
+                DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
                 // Authenticate::class,
