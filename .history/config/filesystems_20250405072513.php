@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -53,7 +53,7 @@ return [
         'brand' => [
             'driver' => 'local',
             'root' => public_path('brand'),
-            'url' => asset("brand"),
+            'url' =>asset("brand"),
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -74,7 +74,7 @@ return [
         'service' => [
             'driver' => 'local',
             'root' => public_path('service'),
-            'url' => 'https://wemarketglobal.com/cms/public/service',
+            'url' =>'https://wemarketglobal.com/cms/public/service',
             'visibility' => 'public',
             'throw' => false,
         ],
