@@ -53,14 +53,14 @@ return [
         'brand' => [
             'driver' => 'local',
             'root' => public_path('brand'),
-            'url' => env("APP_URL" . "/brand"),
+            'url' => asset("brand"),
             'visibility' => 'public',
             'throw' => false,
         ],
         'category' => [
             'driver' => 'local',
             'root' => public_path('category'),
-            'url' => env("APP_URL" . "/category"),
+            'url' => env("APP_URL".""),
             'visibility' => 'public',
             'throw' => false,
         ],
