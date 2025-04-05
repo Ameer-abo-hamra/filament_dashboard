@@ -73,7 +73,7 @@
         },
         "platform": {
             "php": "8.4.1"
-        }
+          }
     },
     "minimum-stability": "stable",
     "prefer-stable": true
