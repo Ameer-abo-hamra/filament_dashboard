@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\{Item, Category, Group, Brand, Subscriber};
 use App\Observers\GeneralObserver;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\URL;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,8 +29,9 @@ class AppServiceProvider extends ServiceProvider
         Category::observe(GeneralObserver::class);
         Order::observe(GeneralObserver::class);
         Model::unguard();
-        if (app()->environment('production')) {
-            URL::forceScheme('https'); // يجبر جميع الروابط على https
-        }
+    if (app()->environment('production')) {
+        URL::forceScheme('https'); // يجبر جميع الروابط على https
+    }
+}
     }
 }

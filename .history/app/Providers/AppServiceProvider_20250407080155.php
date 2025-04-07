@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\{Item, Category, Group, Brand, Subscriber};
 use App\Observers\GeneralObserver;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\URL;
 class AppServiceProvider extends ServiceProvider
 {
     /**
